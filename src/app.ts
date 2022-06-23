@@ -38,7 +38,7 @@ class App {
         });
     }
     private initErrorHandling(): void {
-        this.express.use(errorMiddleware());
+        this.express.use(ErrorMiddleware);
     }
     private initConnection(): void {
         const { MONGO_USER, MONGO_PATH} = process.env; /*The process.env property returns an object containing the user environment.*/
