@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
-import Controller from "@/utils/interfaces/controller.interface";
+import Controller from "../src/middleware/resources/utils/interfaces/controller.interface";
 import ErrorMiddleware from '@/middleware/error.middleware';
 import helmet from 'helmet';
 /*Origin Resourse Sharing, CORS provides a Connect/Express middleware that can be used to enable CORS with various options*/ 
@@ -23,4 +23,35 @@ class App {
         this.initControllers(controllers);
         this.initErrorHandling();
     }
+    private initMiddleware(): void {
+        this.express.use(helmet());
+        this.express.use(cors());
+        this.express.use(morgan('dev'));
+        this.express.use(express.json());
+        this.express.use(express.urlencoded({ extended: false}));
+        this.express.use(compression());
+    }
+
+    private initControllers(controllers: Controller[]): void {
+        controllers.forEach((controller: Controller) =>{
+            this.express.use('/api', controller.router);
+        });
+    }
+    private initErrorHandling(): void {
+        this.express.use(errorMiddleware());
+    }
+    private initConnection(): void {
+        const { MONGO_USER, MONGO_PATH} = process.env; /*The process.env property returns an object containing the user environment.*/
+    
+        mongoose.connect(
+            'mongodb+srv://${MONGO_USER}:${MONGO_PATH}'
+        );
+    }
+    public listen(): void{
+        this.express.listen(this.port, () =>{
+            console.log('The App listening it is on port ${this.port}')
+        });
+    }
 }
+
+export default App;
