@@ -1,9 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import Controller from '../utils/interfaces/controllerInterface';
-import HttpException from '../utils/exceptions/httpException';
+import Controller from '../../src/utils/interfaces/controllerInterface';
+import HttpException from '../../httpException';
 import validationMiddleware from 'middleware/validationMiddleware';
 import validate from './postValidation';
-import PostService from '../post/postService';
+import PostService from './postService';
 
 class PostController implements Controller {
     public path = '/task';
@@ -29,7 +29,7 @@ class PostController implements Controller {
             const post = await this.PostService.create(description, date, user);
             res.status(204).json({ post });
         } catch (error) {
-            next(new HttpException(404, 'Cannot create a new post'));
+            next(new HttpException(404, 'Error 404, unable to create a new post'));
         }
     };
 }

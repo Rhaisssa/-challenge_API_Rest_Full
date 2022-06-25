@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
-import Controller from '../src/middleware/resources/utils/interfaces/controllerInterface'; 
+import Controller from './utils/interfaces/controllerInterface'; 
 import ErrorMiddleware from '../src/middleware/errorMiddleware';
 
 class App {
