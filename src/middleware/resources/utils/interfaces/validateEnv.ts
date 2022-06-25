@@ -3,9 +3,8 @@ import { cleanEnv, str, num, email, port } from 'envalid';
 function validateEnv(): void {
     cleanEnv(process.env, {
         NODE_ENV: str({
-            choices: ['New User'],
+            choices: ['USER'],
         }),
-        MONGO_USER: str(),
         MONGO_NAME: str(),
         MONGO_CPF: num(), 
         MONGO_BIRTHDATE: num(),  
