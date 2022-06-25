@@ -6,11 +6,9 @@ function errorMiddleware(
     req:Request,
     res: Response,
     next:NextFunction,
-     
 ):void {
-    const status = error.status || 500;
+    const status = error.status || 404;
     const message = error.message || "Something went wrong";
-
     res.status(status).send({
         status,
         message
@@ -19,7 +17,7 @@ function errorMiddleware(
 }
 
 export default errorMiddleware;
-   
+
 
 
 
