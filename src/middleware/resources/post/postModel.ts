@@ -1,21 +1,11 @@
 import { Schema, model } from 'mongoose';
-import Post from '../src/middleware/resources/post/postInterface.ts';
+import Post from './postInterface';
 
 const PostSchema = new Schema(
     {
-        id: {type: String, required: true},
-        name: {type: String, required: true},
-        cpf, 
-        bithdate:, 
-        EMAIL, 
-        PASSWORD, 
-        ADDRESS, 
-        NUMBER, 
-        COMPLEMENT, 
-        CITY, 
-        STATE, 
-        COUNTRY, 
-        ZIPCODE,
+        description: {type: String, requered: true},
+        date: {type: Date, requered: true},
+        user: {type: Number, requered: true}
     },
     { timestamps: true }
 );
