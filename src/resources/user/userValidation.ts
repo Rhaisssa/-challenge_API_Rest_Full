@@ -7,50 +7,34 @@ const cutoffDate = new Date(now - (1000 * 60 * 60 * 24 * 365 * 18));
 const register = Joi.object({
     id: Joi.number().integer(),
 
-    name: Joi.string().max(30).required(),
+    name: Joi.string().min(3).max(30).required(),
 
-    cpf: Validade.document().cpf().required(),
-    
-    birthdate: Joi.date().max(cutoffDate).required(),
+    cpf: Validade.document().cpf().min(11).required(),
 
-    email: Joi.string().min(3).required().email(),
+    birthdate: Joi.date().max(cutoffDate).min(8).required(),
 
-    address: Joi.string().required(),
-
-    number: Joi.string().required(),
-
-    complement: Joi.string().required(),
+    email: Joi.string().trim().email().min(1).required(),
 
     password: Joi.string().min(6).required(),
 
+    address: Joi.string().min(1).required(),
 
+    number: Joi.string().min(1).required(),
+
+    complement: Joi.string().min(1).required(),
+
+    city: Joi.string().min(1),
+
+    state: Joi.string().min(1).required(),
+
+    country: Joi.string().min(1).required(),
+
+    zipcode: Joi.number().min(8).max(8).required(),
 });
 
 const login = Joi.object({
-    email: Joi.string().required(),
-
+    email: Joi.string().trim().email().min(1).required(),
     password: Joi.string().required(),
 });
 
 export default { register, login };
-
-
-/*app.post('/',(req,res) => {
-
-    const schema = Joi.object().keys({
-       email: Joi.string().trim().email().required(),
-       pass: Joi.string().min(5)
-    });
-  
-    Joi.validate(req.body,schema,(err,results) => {
-    if(err){
-      res.send('An Error has occured');
-      console.log(err);
-    }else{
-    res.send('Success');
-    console.log(req.body);
-    }
-  
-    });
-  
-  });*/

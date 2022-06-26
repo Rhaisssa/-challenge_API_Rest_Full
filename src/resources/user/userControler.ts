@@ -2,28 +2,28 @@ import { Router, Request, Response, NextFunction } from 'express';
 import Controller from 'utils/interfaces/controllerInterface';
 import HttpException from 'utils/exceptions/httpException';
 import validationMiddleware from 'middleware/validationMiddleware';
-import validate from '/resources/user/userValidation';
-import UserService from '/resources/user/userService';
-import authenticated from '/middleware/authenticatedMiddleware';
+import Validate from './userValidation';
+import UserRegistre from './userRegistre';
+import authenticated from '../../middleware/authenticatedMidleware';
 
 class UserController implements Controller {
     public path = '/user';
     public router = Router();
-    private UserService = new UserService();
+    private UserRegistre = new UserRegistre();
 
     constructor() {
-        this.initialiseRoutes();
+        this.initRoutes();
     }
 
-    private initialiseRoutes(): void {
+    private initRoutes(): void {
         this.router.post(
             `${this.path}/register`,
-            validationMiddleware(validate.register),
+            validationMiddleware(Validate.register),
             this.register
         );
         this.router.post(
             `${this.path}/login`,
-            validationMiddleware(validate.login),
+            validationMiddleware(Validate.login),
             this.login
         );
         this.router.get(`${this.path}`, authenticated, this.getUser);
@@ -37,7 +37,7 @@ class UserController implements Controller {
         try {
             const { name, cpf, birthDate, email, address, number, complement, city, state, country, zipcode } = req.body;
 
-            const token = await this.UserService.register(
+            const token = await this.UserRegistre.registring(
                 name,
                 cpf,
                 birthDate,
@@ -53,7 +53,7 @@ class UserController implements Controller {
             );
 
             res.status(204).json({ token });
-        } catch (error) {
+        } catch (error: any) {
             next(new HttpException(404, error.message));
         }
     };
@@ -65,9 +65,9 @@ class UserController implements Controller {
     ): Promise<Response | void> => {
         try {
             const { email, password } = req.body;
-            const token = await this.UserService.login(email, password);
+            const token = await this.UserRegistre.login(email, password);
             res.status(204).json({ token });
-        } catch (error) {
+        } catch (error:any) {
             next(new HttpException(404, error.message));
         }
     };

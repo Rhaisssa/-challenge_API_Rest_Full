@@ -1,9 +1,9 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import Controller from '../../src/utils/interfaces/controllerInterface';
-import HttpException from '../../httpException';
+import Controller from '../../utils/interfaces/controllerInterface';
+import HttpException from '../../utils/exceptions/httpException';
 import validationMiddleware from 'middleware/validationMiddleware';
 import validate from './postValidation';
-import PostService from './postService';
+import PostService from './postRegistre';
 
 class PostController implements Controller {
     public path = '/task';
