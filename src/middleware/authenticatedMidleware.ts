@@ -10,35 +10,30 @@ async function authenticatedMiddleware(
     res: Response,
     next: NextFunction
 ): Promise<Response | void> {
-    const bearer = req.headers.authorization;
+    const holder = req.headers.authorization;
 
-    if (!bearer || !bearer.startsWith('Bearer ')) {
-        return next(new HttpException(401, 'Unauthorised'));
+    if (!holder || !holder.startsWith('Holder ')) {
+        return next(new HttpException(404, 'Error 404, unable to authenticated user.'));
     }
 
-    const accessToken = bearer.split('Bearer ')[1].trim();
+    const accessToken = holder.split('Holder ')[1].trim();
     try {
         const payload: Token | jwt.JsonWebTokenError = await token.checkingToken(
             accessToken
         );
-
         if (payload instanceof jwt.JsonWebTokenError) {
-            return next(new HttpException(404, 'Unauthorised'));
+            return next(new HttpException(404, 'Error 404, unable to authenticated user.'));
         }
-
         const user = await UserModel.findById(payload.id)
-            .select('-password')
+            .select('_password')
             .exec();
-
         if (!user) {
-            return next(new HttpException(404, 'Unauthorised'));
+            return next(new HttpException(404, 'Error 404, unable to authenticated user.'));
         }
-
         req.user = user;
-
         return next();
     } catch (error) {
-        return next(new HttpException(404, 'Unauthorised'));
+        return next(new HttpException(404, 'Error 404, unable to authenticated user.'));
     }
 }
 
