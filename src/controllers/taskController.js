@@ -3,7 +3,7 @@ import tasks from "../models/taskModel.js";
 class TaskController {
   static getTask = (res) => {
     tasks.find((tasks) => {
-      res.status(204).json(tasks);
+      res.status(204).json(tasks)
     });
   };
 
@@ -59,3 +59,5 @@ class TaskController {
     });
   };
 }
+
+export default TaskController;
