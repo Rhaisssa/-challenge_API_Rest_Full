@@ -1,9 +1,10 @@
-import { app } from './src/app.js';
+import app from "./dist/js/app.js";
 
-const port = process.env.PORT || 3007;
+const port = process.env.PORT || 3000;
+
 
 
 app.listen(port, () => {
-      console.log(`The server is listening on http://localhost:${port}`);
-});
+    console.log(`server listening in http://localhost:${port}`)
+})
 
