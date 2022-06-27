@@ -3,7 +3,7 @@ import tasks from "../models/taskModel.js";
 class TaskController {
   static getTask = (res) => {
     tasks.find((tasks) => {
-      res.status(204).json(tasks)
+      res.status(200).json(tasks)
     });
   };
 
@@ -16,7 +16,7 @@ class TaskController {
           .status(404)
           .send({ message: `${err.message} - Task was not found.` });
       } else {
-        res.status(204).send(tasks);
+        res.status(200).send(tasks);
       }
     });
   };
@@ -27,10 +27,10 @@ class TaskController {
     task.save((err) => {
       if (err) {
         res
-          .status(404)
+          .status(500)
           .send({ message: `${err.message} - Unable to register.` });
       } else {
-        res.status(204).send(task.toJSON());
+        res.status(201).send(task.toJSON());
       }
     });
   };

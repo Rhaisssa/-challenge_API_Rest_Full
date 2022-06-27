@@ -3,7 +3,7 @@ import users from "../models/userModel.js";
 class UserController {
   static getUser = (res) => {
     users.find((users) => {
-      res.status(204).json(users);
+      res.status(200).json(users);
     });
   };
 
@@ -29,11 +29,11 @@ class UserController {
 
     user.save((err) => {
       if (err) {
-        res.status(404).send({
+        res.status(500).send({
           message: `${err.message} - Error when registering the user.`,
         });
       } else {
-        res.status(204).send(user.toJSON());
+        res.status(201).send(user.toJSON());
       }
     });
   };
