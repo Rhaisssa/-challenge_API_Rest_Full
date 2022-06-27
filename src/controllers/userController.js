@@ -15,11 +15,9 @@ class UserController {
       //.populate('name', 'cpf')
       .exec((err, users) => {
         if (err) {
-          res
-            .status(404)
-            .send({
-              message: `${err.message} - Error 404, user was not found`,
-            });
+          res.status(404).send({
+            message: `${err.message} - Error 404, user was not found`,
+          });
         } else {
           res.status(200).send(users);
         }
@@ -31,11 +29,9 @@ class UserController {
 
     user.save((err) => {
       if (err) {
-        res
-          .status(404)
-          .send({
-            message: `${err.message} - Error when registering the user.`,
-          });
+        res.status(404).send({
+          message: `${err.message} - Error when registering the user.`,
+        });
       } else {
         res.status(204).send(user.toJSON());
       }
@@ -68,3 +64,5 @@ class UserController {
     });
   };
 }
+
+export default UserController;

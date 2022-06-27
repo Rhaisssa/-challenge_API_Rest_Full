@@ -1,6 +1,6 @@
 import express from "express";
-import users from "./userRoutes.js";
-import tasks from "./taskRoutes.js";
+import users from "./userRoute.j";
+import tasks from "./taskRoute.js";
 
 const routes = (app) => {
   app.route("/").get((res) => {
@@ -11,4 +11,3 @@ const routes = (app) => {
 };
 
 export default routes;
-
