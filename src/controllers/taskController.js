@@ -3,7 +3,7 @@ import tasks from "../models/taskModel.js";
 class TaskController {
   static getTask = (res) => {
     tasks.find((tasks) => {
-      res.status(200).json(tasks)
+      res.status(200).json(tasks);
     });
   };
 
@@ -13,7 +13,7 @@ class TaskController {
     tasks.findById(id, (err, tasks) => {
       if (err) {
         res
-          .status(404)
+          .status(40)
           .send({ message: `${err.message} - Task was not found.` });
       } else {
         res.status(200).send(tasks);
@@ -21,7 +21,7 @@ class TaskController {
     });
   };
 
-  static postTask = (req, res) => {
+  static setTask = (req, res) => {
     let task = new tasks(req.body);
 
     task.save((err) => {
@@ -38,7 +38,7 @@ class TaskController {
   static updateTask = (req, res) => {
     const id = req.params.id;
 
-    tasks.updateById(id, { $set: req.body }, (err) => {
+    tasks.findByIdAndUpdate(id, { $set: req.body }, (err) => {
       if (!err) {
         res.status(204).send({ message: "Updated sucessfully." });
       } else {
@@ -50,7 +50,7 @@ class TaskController {
   static deleteTask = (req, res) => {
     const id = req.params.id;
 
-    tasks.deleteById(id, (err) => {
+    tasks.findByIdAndDelete(id, (err) => {
       if (!err) {
         res.status(204).send({ message: "Deleted sucessfully" });
       } else {

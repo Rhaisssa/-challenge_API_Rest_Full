@@ -7,7 +7,8 @@ class UserController {
     });
   };
 
-  static getUserById = (req, res) => {
+
+static getUserById = (req, res) => {
     const id = req.params.id;
 
     users
@@ -15,23 +16,27 @@ class UserController {
       //.populate('name', 'cpf')
       .exec((err, users) => {
         if (err) {
-          res.status(404).send({
-            message: `${err.message} - Error 404, user was not found`,
-          });
+          res
+            .status(404)
+            .send({
+              message: `${err.message} - Error 404, user was not found`,
+            });
         } else {
           res.status(200).send(users);
         }
       });
   };
 
-  static postUser = (req, res) => {
+  static setUser = (req, res) => {
     let user = new users(req.body);
 
     user.save((err) => {
       if (err) {
-        res.status(500).send({
-          message: `${err.message} - Error when registering the user.`,
-        });
+        res
+          .status(500)
+          .send({
+            message: `${err.message} - Error when registering the user.`,
+          });
       } else {
         res.status(201).send(user.toJSON());
       }
@@ -40,11 +45,10 @@ class UserController {
 
   static updateUser = (req, res) => {
     const id = req.params.id;
-
-    users.updateById(id, { $set: req.body }, (err) => {
+    users.findByIdAndUpdate(id, { $set: req.body }, (err) => {
       if (!err) {
         res
-          .status(204)
+          .status(200)
           .send({ message: "The user has been successfully updated." });
       } else {
         res.status(404).send({ message: "Unable to update user" });
@@ -55,7 +59,7 @@ class UserController {
   static deleteUser = (req, res) => {
     const id = req.params.id;
 
-    livros.deleteById(id, (err) => {
+    users.findByIdAndDelete(id, (err) => {
       if (!err) {
         res.status(204).send({ message: "The user was deleted successfully" });
       } else {
@@ -63,6 +67,23 @@ class UserController {
       }
     });
   };
+
+static listUserbyName = (req, res) => {
+    const name = req.params.name;
+
+    users.find({'name': name}, {}, (err, users) => {
+        res.status(200).send(users);
+    });
+};
+
+/*  static listUserbyCpf = (req, res) => {
+    const cpf = req.params.cpf;
+
+    users.find({'cpf': cpf}, {}, (err, users) => {
+        res.status(200).send(users);
+    });
+  };
+*/
 }
 
 export default UserController;
