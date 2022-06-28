@@ -21,7 +21,7 @@ class TaskController {
     });
   };
 
-  static setTask = (req, res) => {
+  static postTask = (req, res) => {
     let task = new tasks(req.body);
 
     task.save((err) => {

@@ -24,7 +24,7 @@ class UserController {
       });
   };
 
-  static setUser = (req, res) => {
+  static postUser = (req, res) => {
     let user = new users(req.body);
 
     user.save((err) => {
