@@ -7,8 +7,7 @@ class UserController {
     });
   };
 
-
-static getUserById = (req, res) => {
+  static getUserById = (req, res) => {
     const id = req.params.id;
 
     users
@@ -16,11 +15,9 @@ static getUserById = (req, res) => {
       //.populate('name', 'cpf')
       .exec((err, users) => {
         if (err) {
-          res
-            .status(404)
-            .send({
-              message: `${err.message} - Error 404, user was not found`,
-            });
+          res.status(404).send({
+            message: `${err.message} - Error 404, user was not found`,
+          });
         } else {
           res.status(200).send(users);
         }
@@ -32,17 +29,14 @@ static getUserById = (req, res) => {
 
     user.save((err) => {
       if (err) {
-        res
-          .status(500)
-          .send({
-            message: `${err.message} - Error when registering the user.`,
-          });
+        res.status(500).send({
+          message: `${err.message} - Error when registering the user.`,
+        });
       } else {
         res.status(201).send(user.toJSON());
       }
     });
   };
-
   static updateUser = (req, res) => {
     const id = req.params.id;
     users.findByIdAndUpdate(id, { $set: req.body }, (err) => {
@@ -67,15 +61,15 @@ static getUserById = (req, res) => {
       }
     });
   };
-
-static listUserbyName = (req, res) => {
+}
+/*static listUserbyName = (req, res) => {
     const name = req.params.name;
 
     users.find({'name': name}, {}, (err, users) => {
         res.status(200).send(users);
     });
 };
-
+*/
 /*  static listUserbyCpf = (req, res) => {
     const cpf = req.params.cpf;
 
@@ -84,6 +78,5 @@ static listUserbyName = (req, res) => {
     });
   };
 */
-}
 
 export default UserController;
