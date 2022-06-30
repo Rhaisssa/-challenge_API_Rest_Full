@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit</title>
-</head>
-<body>
-    <button id="edit-id">Edit</button>
-
-    <form action="#" id=" "form-user>
-    <section id="form">
-        <label for="">Id</label>
-        <input type="text" id="input-edit-id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <body class="middle">
+  
+    <form action="#" id="form" class="form-user">
+      <section id="form">
         <label for="" >Name</label>
         <input type="text" id="input-name" placeholder="Rhaissa" required />
         <label for="" >CPF</label>
@@ -26,7 +24,7 @@
         <label for="" >Adress</label>
         <input type="text" id="input-adress" placeholder="Av. 24 de Setembro" required />
         <label for="" >Number</label>
-        <input type="number" id="input-number" placeholder="3877" required />
+        <input type="number" id="input-number" placeholder="3077" required />
         <label for="" >Complement</label>
         <input type="text" id="input-complement" placeholder="APTO 107" required />
         <label for="" >City</label>
@@ -37,10 +35,16 @@
         <input type="text" id="country" placeholder="Brasil" required />
         <label for="" >Zipcode</label>
         <input type="number" id="input-zipcode" placeholder="80.010-210" required />
-        <label for=""></label>
-        <input type="submit" id="edit-user" value="Confirm Edition">
-        </section>
-    <button id="delete-user">Delete User</button>
+        <button id="submit" id="id-submit">Submit</button>
+        <div class="showAll">
+        <button id="showAll">Show All Registered</button>
+        <div id="search">
+        <input type="search" id="" placeholder="Search" />
+        </div>
+      </div>
+      </section>
     </form>
-</body>
+        <script src="../controllers/viewControllerUser.js"></script>
+        <script src="../controllers//taskController.js"></script>
+  </body>
 </html>

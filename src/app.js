@@ -7,6 +7,7 @@ import routes from "./routes/index.js";
       else { console.log('Connection error: ' + err)}
 });*/
 
+
 mongoose.connect(
   "mongodb://localhost:27017/",
   { useNewUrlParser: false },
@@ -21,9 +22,9 @@ mongoose.connect(
 
 let db = mongoose.connection;
 
-db.on("error", console.log.bind(console, "Error 404, unable to connect."));
+db.on("error", console.log.bind(console, "Unable to connect."));
 db.once("open", () => {
-  console.log("204,successful connection.");
+  console.log("Successful connection.");
 });
 
 const app = express();

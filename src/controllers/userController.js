@@ -9,7 +9,6 @@ class UserController {
 
   static getUserById = (req, res) => {
     const id = req.params.id;
-
     users
       .findById(id)
       //.populate('name', 'cpf')

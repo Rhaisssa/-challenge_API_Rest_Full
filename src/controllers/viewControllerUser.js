@@ -1,4 +1,4 @@
-const form = document.getElementById('form');
+const form = document.getElementById('showAll');
 const name = document.getElementById('input-name');
 const cpf = document.getElementById('input-cpf');
 const birthdate = document.getElementById('input-birthdate');
@@ -11,13 +11,7 @@ const city = document.getElementById('input-city');
 const state = document.getElementById('input-state');
 const country = document.getElementById('input-country');
 const zipcode = document.getElementById('input-zipcode');
-
-
-form.addEventListener('submit', e => {
-	e.preventDefault();
-	
-	checkInputs();
-});
+//const buttonSubmit = document.getElementById('id-submit');
 
 function checkInputs() {
 	// trim to remove the white spaces
@@ -33,7 +27,6 @@ function checkInputs() {
     const stateValue = state.value.trim(); 
     const countryValue = country.value.trim();
     const zipcodeValue = state.value.trim();
-	
 
 	form.addEventListener('submit', e => {
 		e.preventDefault();
@@ -41,6 +34,7 @@ function checkInputs() {
 		checkInputs();
 	});
 	
+
 	if(userNameValue === '') {
 		setErrorFor(username, 'Name cannot be blank');
 	} else {
@@ -66,6 +60,7 @@ function checkInputs() {
 	} else {
 		setSuccessFor(email);
 	}
+
 	
 	if(passwordValue === '') {
 		setErrorFor(password, 'Password cannot be blank');
@@ -117,6 +112,28 @@ function checkInputs() {
 
 }
 
+function validationCPF(strCPF) {
+    let Add;
+    let Rest;
+    Add = 0;
+    if (strCPF == "00000000000") return false;
+
+	for (i=1; i<=9; i++) Add = Add + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+	Rest = (Add * 10) % 11;
+
+    if ((Rest == 10) || (Rest == 11))  Rest = 0;
+    if (Rest != parseInt(strCPF.substring(9, 10)) ) return false;
+
+	Add = 0;
+    for (i = 1; i <= 10; i++) Add = Add + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    Rest = (Add * 10) % 11;
+
+    if ((Rest == 10) || (Rest == 11))  Rest = 0;
+    if (Rest != parseInt(strCPF.substring(10, 11) ) ) return false;
+    return true;
+}
+
+
 function isEmail(email) {
 	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
@@ -132,7 +149,41 @@ function setSuccessFor(input) {
 	const formControl = input.parentElement;
 	formControl.className = 'The form-control was a success';
 }
-	
+
+function sendData(path, parameters, method='post') {
+
+	const form = document.createElement('form');
+	form.method = method;
+	form.action = path;
+	document.body.appendChild(form);
+
+	for (const key in parameters) {
+		const formField = document.createElement('input');
+		formField.type = 'hidden';
+		formField.name = key;
+		formField.value = parameters[key];
+
+		form.appendChild(formField);
+	}
+	form.submit();
+}
+//sendData('http://localhost:3000/api/v1/user'});
+
+let sendData= document.querySelector("#submit")
+submit.addEventListener("click", function(){
+    fetch("http://localhost:3000/api/v1/users")
+        .then((data) => data.json())
+		.then(window.open("http://localhost:3000/api/v1/user"))
+});
+
+/*let submit = document.querySelector("#submit")
+submit.addEventListener("click", function(){
+    fetch("http://localhost:3000/api/v1/users")
+        .then((data) => data.json())
+		.then(window.open("http://localhost:3000/api/v1/user"))
+});
+*/
+
 
 
 

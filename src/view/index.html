@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div>
+            <div><label>Email</label></div>
+            <input type="email" name="email" id="email" placeholder="seu@email.com" onchange="validateFields()"/>
+        <div>
+            <div><label>Senha</label></div>
+            <input type="password" name="password" id="password" placeholder="Senha" onchange="validateFields()"/>
+        </div>
+        <div>
+            <button type="button" class="clear" id="edit-button" disabled="true">Edit</button>
+        </div>
+        <div>
+            <button type="button" class="solid" id="login-button" disabled="true">Login</button>
+        </div>
+        <div>
+            <button type="button" class="outline">Registre</button>
+        </div>
+    </form>
+</body>
+</html>
